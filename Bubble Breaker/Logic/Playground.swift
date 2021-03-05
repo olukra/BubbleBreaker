@@ -33,7 +33,8 @@ class PlayGround {
         print(bubbles[row][column].color.hash)
         for buble in bubbles {
             for b in buble {
-                if bubbles[row][column].color == b.color {
+                if bubbles[row][column].color == b[].color {
+                   
                     continue
                 }else {
                     break
