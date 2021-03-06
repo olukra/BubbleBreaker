@@ -21,7 +21,7 @@ class PlayGround {
             bubbles.append(row)
         }
     }
-
+    
     func getBubbleAtPosition(row: Int, column: Int) -> Bubble? {
         if row < 0 || row >= rows || column < 0 || column >= columns {
             return nil
@@ -29,18 +29,42 @@ class PlayGround {
             return bubbles[row][column]
         }
     }
-    func selectedBubles(column: Int, row: Int){
-        print(bubbles[row][column].color.hash)
-        for buble in bubbles {
-            for b in buble {
-                if bubbles[row][column].color == b[].color {
-                   
-                    continue
-                }else {
-                    break
+    func dFS(v: Pos,  discovered: inout Set<Pos>, neighborhood: inout [Pos]) {
+        discovered.insert(Pos(row: v.row, column: v.column))
+        for nPos in neighborPos(position: v) {
+            if discovered.contains(nPos) == false {
+                if bubbles[v.row][v.column].color == bubbles[nPos.row][nPos.column].color {
+                    neighborhood.append(nPos)
+                    dFS(v: nPos, discovered: &discovered, neighborhood: &neighborhood)
                 }
+                    
+            }
         }
     }
-   
+    
+    func neighborPos(position: Pos)->[Pos] {
+        return [Pos(row: position.row-1, column: position.column),
+                Pos(row: position.row+1, column: position.column),
+                Pos(row: position.row, column: position.column-1),
+                Pos(row: position.row, column: position.column+1)]
+    }
+    func selectedBubles(column: Int, row: Int){
+        for _ in bubbles {
+            if bubbles[row][column].color == bubbles[row+1][column].color {
+                continue
+            }else {
+                break
+            }
+        }
+    }
+    
 }
+
+struct Pos: Hashable {
+    var row : Int
+    var column: Int
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(row)
+        hasher.combine(column)
+    }
 }
