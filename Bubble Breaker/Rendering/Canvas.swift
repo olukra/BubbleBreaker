@@ -39,6 +39,7 @@ class Canvas: UIView{
             let column = Int(position.x)/sqareSideSize
             let row = Int(position.y)/sqareSideSize
             play.selectedBubles(column: column, row: row)
+           
         }
     }
 }

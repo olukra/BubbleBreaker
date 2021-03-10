@@ -31,10 +31,10 @@ class PlayGround {
     }
     func dFS(v: Pos,  discovered: inout Set<Pos>, neighborhood: inout [Pos]) {
         discovered.insert(Pos(row: v.row, column: v.column))
+        neighborhood.append(v)
         for nPos in neighborPos(position: v) {
             if discovered.contains(nPos) == false {
                 if bubbles[v.row][v.column].color == bubbles[nPos.row][nPos.column].color {
-                    neighborhood.append(nPos)
                     dFS(v: nPos, discovered: &discovered, neighborhood: &neighborhood)
                 }
                     
@@ -43,19 +43,20 @@ class PlayGround {
     }
     
     func neighborPos(position: Pos)->[Pos] {
+        
         return [Pos(row: position.row-1, column: position.column),
                 Pos(row: position.row+1, column: position.column),
                 Pos(row: position.row, column: position.column-1),
                 Pos(row: position.row, column: position.column+1)]
+            .filter { p in
+                return p.row > 0 && p.column > 0 && p.row < rows && p.column < columns
+            }
     }
     func selectedBubles(column: Int, row: Int){
-        for _ in bubbles {
-            if bubbles[row][column].color == bubbles[row+1][column].color {
-                continue
-            }else {
-                break
-            }
-        }
+        var disc = Set<Pos>()
+        var neighb = [Pos]()
+      dFS(v: Pos(row: row, column: column), discovered: &disc, neighborhood: &neighb)
+        print (neighb)
     }
     
 }
