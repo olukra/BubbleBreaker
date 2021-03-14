@@ -29,15 +29,15 @@ class PlayGround {
             return bubbles[row][column]
         }
     }
-    func dFS(v: Pos,  discovered: inout Set<Pos>, neighborhood: inout [Pos]) {
+    func dFS(v: Pos,  discovered: inout Set<Pos>, neighborhood: inout Set<Pos>) {
         discovered.insert(Pos(row: v.row, column: v.column))
-        neighborhood.append(v)
+        neighborhood.insert(v)
         for nPos in neighborPos(position: v) {
             if discovered.contains(nPos) == false {
                 if bubbles[v.row][v.column].color == bubbles[nPos.row][nPos.column].color {
                     dFS(v: nPos, discovered: &discovered, neighborhood: &neighborhood)
                 }
-                    
+                
             }
         }
     }
@@ -52,11 +52,17 @@ class PlayGround {
                 return p.row > 0 && p.column > 0 && p.row < rows && p.column < columns
             }
     }
-    func selectedBubles(column: Int, row: Int){
+    func selectedBubles(column: Int, row: Int)-> [(bubble: Pos, top: Bool, right: Bool, bottom: Bool, left: Bool)]{
         var disc = Set<Pos>()
-        var neighb = [Pos]()
-      dFS(v: Pos(row: row, column: column), discovered: &disc, neighborhood: &neighb)
-        print (neighb)
+        var neighb = Set<Pos>()
+        dFS(v: Pos(row: row, column: column), discovered: &disc, neighborhood: &neighb)
+        return neighb.map{p -> (bubble: Pos, top: Bool, right: Bool, bottom: Bool, left: Bool) in
+            let topPosition = Pos(row: p.row-1, column: p.column)
+            let rightPosition = Pos(row: p.row, column: p.column+1)
+            let leftPosition =  Pos(row: p.row, column: p.column-1)
+            let bottomPosition =  Pos(row: p.row+1, column: p.column)
+            return (bubble: p, top: neighb.contains(topPosition) == false, right: neighb.contains(rightPosition) == false, bottom: neighb.contains(bottomPosition) == false, left: neighb.contains(leftPosition) == false)
+        }
     }
     
 }
