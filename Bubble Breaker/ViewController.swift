@@ -8,7 +8,7 @@
 import UIKit
 
 class ViewController: UIViewController {
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         let canvas = Canvas(frame: view.safeAreaLayoutGuide.layoutFrame)
@@ -18,6 +18,7 @@ class ViewController: UIViewController {
         canvas.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
         canvas.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
         canvas.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
+        
     }
     
     

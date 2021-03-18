@@ -6,9 +6,11 @@
 //
 
 import UIKit
+
 class Canvas: UIView{
-    let play = PlayGround(rows: 24, columns: 12)  // creating new PlayGround object
+    let play = PlayGround(rows: 23, columns: 12)  // creating new PlayGround object
     let buble = Bubble(color: .red) // creating new bubble object with default colour
+    var bubbleSelection: BubbleSelection?
     let sqareSideSize: Int
     override init(frame: CGRect){
         let elementWidth = Int(frame.width) / play.columns // width of element which will contain bubble
@@ -32,6 +34,9 @@ class Canvas: UIView{
                 }
             }
         }
+        if let bs = bubbleSelection {
+            drawSelectionLine(context: context, selection: bs)
+        }
      }
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) { // this method will call when user taps on the screen
         if let touch = touches.first { // checking if first touch exists (not nill)
@@ -39,8 +44,23 @@ class Canvas: UIView{
             let column = Int(position.x)/sqareSideSize
             let row = Int(position.y)/sqareSideSize
             let selection = play.selectedBubles(column: column, row: row) //  send coordinates of selected bubble
-            dump(selection)
-           
+            print(selection.count)
+            bubbleSelection = selection
+            setNeedsDisplay()
+            
         }
+    }
+    func drawSelectionLine(context: CGContext, selection: BubbleSelection) {
+        for bs in selection {
+            let topLeft = CGPoint(x: bs.bubble.column * sqareSideSize, y: bs.bubble.row * sqareSideSize)
+            if bs.top == true{
+                let topRight = CGPoint(x: topLeft.x + CGFloat(sqareSideSize), y: topLeft.y)
+                UIColor.brown.set()
+                context.move(to: topLeft)
+                context.addLine(to: topRight)
+                context.strokePath()
+            }
+        }
+       
     }
 }
