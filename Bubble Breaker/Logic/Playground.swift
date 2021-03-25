@@ -7,14 +7,14 @@
 import UIKit
 typealias BubbleSelection = [(bubble: Pos, top: Bool, right: Bool, bottom: Bool, left: Bool)]
 class PlayGround {
-    private var bubbles = [[Bubble]]() // 2 d array of bubbles
-    let rows : Int
-    let columns : Int
+    private var bubbles = [[Bubble?]]() // 2 d array of bubbles
+    let rows : Int // number of rows
+    let columns : Int // number of columns
     let bubbleColours = [UIColor.red, UIColor.green, UIColor.yellow, UIColor.blue, UIColor.magenta] // array of bubble colours
     init(rows : Int, columns: Int) {
         self.rows = rows
         self.columns = columns
-        for _ in 0..<rows { //??
+        for _ in 0..<rows { // creating 2 d array of bubbles (appending bubbles)
             var row = [Bubble]()
             for _ in 0..<columns {
                 row.append(Bubble(color: bubbleColours[Int.random(in: 0..<bubbleColours.count-2)]))
@@ -34,12 +34,13 @@ class PlayGround {
     func dFS(v: Pos,  discovered: inout Set<Pos>, neighborhood: inout Set<Pos>) { // Depth-first search
         discovered.insert(Pos(row: v.row, column: v.column)) // inserts discovered bubbles into set
         neighborhood.insert(v)
-        for nPos in neighborPos(position: v) { // this loop itarates iterate through all directions and checks if the next bubble has the same colour
+        for nPos in neighborPos(position: v) { // this loop itarates  through all directions and checks if the next bubble has the same colour
             if discovered.contains(nPos) == false {
-                if bubbles[v.row][v.column].color == bubbles[nPos.row][nPos.column].color {
-                    dFS(v: nPos, discovered: &discovered, neighborhood: &neighborhood)
+                if let currentBubble = bubbles[v.row][v.column], let neighborBubble = bubbles[nPos.row][nPos.column] {
+                    if currentBubble.color == neighborBubble.color {
+                        dFS(v: nPos, discovered: &discovered, neighborhood: &neighborhood)
+                    }
                 }
-                
             }
         }
     }
@@ -50,7 +51,7 @@ class PlayGround {
                 Pos(row: position.row+1, column: position.column),
                 Pos(row: position.row, column: position.column-1),
                 Pos(row: position.row, column: position.column+1)]
-            .filter { p in
+            .filter { p in // filters all correct postitions
                 return p.row >= 0 && p.column >= 0 && p.row < rows && p.column < columns
             }
     }
@@ -66,7 +67,21 @@ class PlayGround {
             return (bubble: p, top: neighb.contains(topPosition) == false, right: neighb.contains(rightPosition) == false, bottom: neighb.contains(bottomPosition) == false, left: neighb.contains(leftPosition) == false)
         }
     }
-    
+    func deleteSelectedBubbles(selection:  BubbleSelection) {
+        for s in selection {
+            bubbles[s.bubble.row][s.bubble.column] = nil
+        }
+        for row in 0..<(rows-1) {
+            for column in 0..<columns {
+                if bubbles[row+1][column] == nil {
+                    for index in (0...row).reversed() {
+                        bubbles[index+1][column] = bubbles[index][column]
+                    }
+                    bubbles[0][column] = nil
+                }
+            }
+        }
+    }
 }
 
 struct Pos: Hashable {

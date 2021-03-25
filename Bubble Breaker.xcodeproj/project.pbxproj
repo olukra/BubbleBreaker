@@ -16,6 +16,7 @@
 		7C33AAD925D3CB1100AD8437 /* Playground.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C33AAD825D3CB1100AD8437 /* Playground.swift */; };
 		7C33AADE25D3CB5C00AD8437 /* Canvas.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C33AADD25D3CB5C00AD8437 /* Canvas.swift */; };
 		7C33AAE225D3CB9C00AD8437 /* Bubble.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C33AAE125D3CB9C00AD8437 /* Bubble.swift */; };
+		7CBE7600260650A300E52948 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CBE75FF260650A300E52948 /* Utils.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +31,7 @@
 		7C33AAD825D3CB1100AD8437 /* Playground.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Playground.swift; sourceTree = "<group>"; };
 		7C33AADD25D3CB5C00AD8437 /* Canvas.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Canvas.swift; sourceTree = "<group>"; };
 		7C33AAE125D3CB9C00AD8437 /* Bubble.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bubble.swift; sourceTree = "<group>"; };
+		7CBE75FF260650A300E52948 /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -88,6 +90,7 @@
 			children = (
 				7C33AAE125D3CB9C00AD8437 /* Bubble.swift */,
 				7C33AADD25D3CB5C00AD8437 /* Canvas.swift */,
+				7CBE75FF260650A300E52948 /* Utils.swift */,
 			);
 			path = Rendering;
 			sourceTree = "<group>";
@@ -165,6 +168,7 @@
 				7C33AAD925D3CB1100AD8437 /* Playground.swift in Sources */,
 				7C33AAE225D3CB9C00AD8437 /* Bubble.swift in Sources */,
 				7C33AAC725D3C9C600AD8437 /* ViewController.swift in Sources */,
+				7CBE7600260650A300E52948 /* Utils.swift in Sources */,
 				7C33AAC325D3C9C600AD8437 /* AppDelegate.swift in Sources */,
 				7C33AADE25D3CB5C00AD8437 /* Canvas.swift in Sources */,
 				7C33AAC525D3C9C600AD8437 /* SceneDelegate.swift in Sources */,
