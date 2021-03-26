@@ -6,12 +6,14 @@
 //
 
 import UIKit
-
+///  Visual representation of bubble. It can draw itself on a context.
 class Bubble {
     let color: UIColor
+    
     init(color: UIColor) {
         self.color = color
     }
+    
     func draw(whereTo: CGRect, context: CGContext) {
         let width = Float(whereTo.width)
         let height = Float(whereTo.height)
@@ -20,6 +22,5 @@ class Bubble {
         color.set()
         context.addArc(center: center, radius: CGFloat(radius), startAngle: 0, endAngle: .pi * 2, clockwise: true)
         context.fillPath()
-        
     }
 }
